@@ -22,6 +22,26 @@ app.get('/blogs', (req, res) => {
     })
 })
 
+app.get('/blogs/:id', (req, res) => {
+    Blog.findById(req.params.id).then((blog) => {
+        if (!blog) {
+            return res.status(404).send();
+        }
+        res.send(blog);
+    }).catch((error) => {
+        res.status(500).send(error);
+    })
+
+    // Blog.findOne({_id: req.params.id}).then((blog) => {
+    //     if (!blog) {
+    //         return res.status(404).send();
+    //     }
+    //     res.send(blog);
+    // }).catch((error) => {
+    //     res.status(500).send(error);
+    // })
+})
+
 app.listen(3000, (req, res) => {
     console.log('app is running in port 3000!');
 })
