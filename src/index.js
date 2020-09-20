@@ -6,9 +6,21 @@ const app = express();
 app.use(express.json());
 
 app.post('/blogs', (req, res) => {
-    const blog = new Blog(req.body);
-    blog.save().then((blog) => {
-        res.status(201).send(blog);
+    // const blog = new Blog(req.body);
+    // blog.save().then((blog) => {
+    //     res.status(201).send(blog);
+    // }).catch((error) => {
+    //     res.status(400).send(error);
+    // })
+
+    // Blog.create(req.body).then((blog) => {
+    //     res.status(201).send(blog);
+    // }).catch((error) => {
+    //     res.status(400).send(error);
+    // })
+
+    Blog.insertMany(req.body).then((blogs) => {
+        res.status(201).send(blogs);
     }).catch((error) => {
         res.status(400).send(error);
     })
