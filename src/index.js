@@ -34,17 +34,22 @@ app.get('/blogs/:id', (req, res) => {
 })
 
 app.patch('/blogs/:id', (req, res) => {
-    // Blog.findByIdAndUpdate(req.params.id, req.body, {new: true}).then((blog) => {
-    //     if (!blog) {
-    //         return res.status(404).send();
-    //     }
-    //     res.send(blog);
-    // }).catch(error => {
-    //     res.status(500).send(error);
-    // })
+    Blog.findByIdAndUpdate(req.params.id, req.body, {new: true}).then((blog) => {
+        if (!blog) {
+            return res.status(404).send();
+        }
+        res.send(blog);
+    }).catch(error => {
+        res.status(500).send(error);
+    })
+})
 
-    Blog.updateOne({_id: req.params.id}, req.body).then(response => {
-        res.status(200).send(response);
+app.delete('/blogs/:id', (req, res) => {
+    Blog.findByIdAndDelete(req.params.id).then(blog => {
+        if (!blog) {
+            return res.status(404).send();
+        }
+        res.send(blog);
     }).catch(error => {
         res.status(500).send(error);
     })
